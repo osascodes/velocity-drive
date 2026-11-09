@@ -106,18 +106,18 @@ export const BookingModal: React.FC<BookingModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
+    <div className="fixed inset-0 z-50 flex items-start sm:items-center justify-center p-3 sm:p-6 overflow-y-auto">
       {/* Backdrop */}
       <div onClick={onClose} className="fixed inset-0 bg-black/85 backdrop-blur-md" />
 
       {/* Modal Card */}
-      <div className="relative w-full max-w-2xl bg-obsidian-900 border border-white/15 rounded-3xl overflow-hidden shadow-2xl shadow-black z-10 my-8">
+      <div className="relative w-full max-w-2xl bg-obsidian-900 border border-white/15 rounded-3xl overflow-hidden shadow-2xl shadow-black z-10 my-auto max-h-[92vh] flex flex-col">
         
         {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b border-white/10 bg-obsidian-850">
+        <div className="flex items-center justify-between p-4 sm:p-6 border-b border-white/10 bg-obsidian-850 shrink-0">
           <div>
             <span className="text-xs font-mono uppercase tracking-widest text-emerald-400 font-bold">RESERVATION CHECKOUT</span>
-            <h2 className="text-xl font-bold text-white">{car.make} {car.model}</h2>
+            <h2 className="text-lg sm:text-xl font-bold text-white">{car.make} {car.model}</h2>
           </div>
           <button
             onClick={onClose}
@@ -127,9 +127,10 @@ export const BookingModal: React.FC<BookingModalProps> = ({
           </button>
         </div>
 
-        {/* Content: If Booking Confirmed, show Success View */}
-        {confirmedBooking ? (
-          <div className="p-8 text-center">
+        {/* Scrollable Form Body */}
+        <div className="overflow-y-auto flex-1 overscroll-contain">
+          {confirmedBooking ? (
+            <div className="p-6 sm:p-8 text-center">
             <div className="w-16 h-16 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 flex items-center justify-center mx-auto mb-6">
               <Check className="w-8 h-8" />
             </div>
@@ -321,6 +322,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
 
           </form>
         )}
+        </div>
 
       </div>
     </div>
