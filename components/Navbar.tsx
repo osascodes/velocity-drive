@@ -24,9 +24,9 @@ export const Navbar: React.FC<NavbarProps> = ({
   return (
     <header className="sticky top-0 z-40 w-full backdrop-blur-xl bg-obsidian-900/80 border-b border-white/10 transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-        
+
         {/* Brand Logo */}
-        <div 
+        <div
           onClick={() => {
             setActiveView('home');
             setIsMobileMenuOpen(false);
@@ -48,86 +48,92 @@ export const Navbar: React.FC<NavbarProps> = ({
         </div>
 
         {/* Desktop Navigation Links */}
-        <nav className="hidden md:flex items-center gap-8 text-sm font-medium">
+        <nav className="hidden md:flex items-center gap-5 lg:gap-7 text-sm font-medium">
           <button
             onClick={() => setActiveView('home')}
-            className={`transition-colors hover:text-emerald-400 ${activeView === 'home' ? 'text-emerald-400 font-semibold' : 'text-zinc-300'}`}
+            className={`whitespace-nowrap transition-colors hover:text-emerald-400 ${activeView === 'home' ? 'text-emerald-400 font-semibold' : 'text-zinc-300'}`}
           >
-            Fleet Catalog
+            Fleet
           </button>
-          <a href="#how-it-works" className="text-zinc-300 hover:text-emerald-400 transition-colors">
+          <a href="#how-it-works" className="whitespace-nowrap text-zinc-300 hover:text-emerald-400 transition-colors">
             How It Works
           </a>
-          <a href="#why-us" className="text-zinc-300 hover:text-emerald-400 transition-colors">
-            Why Velocity
+          <a href="#why-us" className="whitespace-nowrap text-zinc-300 hover:text-emerald-400 transition-colors">
+            Why Us
           </a>
           {currentUser && (
             <button
               onClick={() => setActiveView('my-bookings')}
-              className={`flex items-center gap-2 transition-colors hover:text-emerald-400 ${activeView === 'my-bookings' ? 'text-emerald-400 font-semibold' : 'text-zinc-300'}`}
+              className={`whitespace-nowrap flex items-center gap-2 transition-colors hover:text-emerald-400 ${activeView === 'my-bookings' ? 'text-emerald-400 font-semibold' : 'text-zinc-300'}`}
             >
-              <Calendar className="w-4 h-4" />
-              My Bookings
+              <Calendar className="w-4 h-4 text-emerald-400" />
+              <span>My Bookings</span>
             </button>
           )}
           {currentUser?.role === 'ADMIN' && (
             <button
               onClick={() => setActiveView('admin-dashboard')}
-              className={`flex items-center gap-2 transition-colors hover:text-emerald-400 ${activeView === 'admin-dashboard' ? 'text-emerald-400 font-semibold' : 'text-amber-400'}`}
+              className={`whitespace-nowrap flex items-center gap-2 transition-colors hover:text-emerald-400 ${activeView === 'admin-dashboard' ? 'text-emerald-400 font-semibold' : 'text-amber-400'}`}
             >
               <Shield className="w-4 h-4" />
-              Admin Command
+              <span>Admin Command</span>
             </button>
           )}
         </nav>
 
         {/* Action Controls & Auth */}
-        <div className="flex items-center gap-3">
-          
-          {/* Quick Demo Role Switcher (Desktop) */}
-          <div className="hidden lg:flex items-center bg-obsidian-800 border border-white/10 rounded-full p-1 text-xs">
-            <span className="px-2.5 py-1 text-zinc-400 text-[11px] font-mono flex items-center gap-1">
-              <Sparkles className="w-3 h-3 text-emerald-400" />
-              DEMO:
-            </span>
+        <div className="flex items-center gap-3.5">
+
+          {/* Subtle Vertical Divider for Breathing Room */}
+          <div className="hidden lg:block h-5 w-px bg-white/10" />
+
+          {/* Sleek Minimalist Segmented Role Switcher */}
+          <div className="hidden lg:inline-flex items-center bg-white/[0.03] border border-white/10 rounded-full p-0.5 text-xs">
             <button
               onClick={() => onSwitchRole('CUSTOMER')}
-              className={`px-3 py-1 rounded-full font-medium transition-all ${currentUser?.role === 'CUSTOMER' ? 'bg-emerald-500 text-obsidian-900 font-semibold shadow-sm' : 'text-zinc-300 hover:text-white'}`}
+              className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold transition-all ${
+                currentUser?.role === 'CUSTOMER'
+                  ? 'bg-white/10 text-white shadow-sm'
+                  : 'text-zinc-400 hover:text-white'
+              }`}
             >
+              <span className={`w-1.5 h-1.5 rounded-full ${currentUser?.role === 'CUSTOMER' ? 'bg-emerald-400' : 'bg-transparent'}`} />
               Customer
             </button>
             <button
               onClick={() => onSwitchRole('ADMIN')}
-              className={`px-3 py-1 rounded-full font-medium transition-all ${currentUser?.role === 'ADMIN' ? 'bg-amber-400 text-obsidian-900 font-semibold shadow-sm' : 'text-zinc-300 hover:text-white'}`}
+              className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold transition-all ${
+                currentUser?.role === 'ADMIN'
+                  ? 'bg-white/10 text-white shadow-sm'
+                  : 'text-zinc-400 hover:text-white'
+              }`}
             >
+              <span className={`w-1.5 h-1.5 rounded-full ${currentUser?.role === 'ADMIN' ? 'bg-amber-400' : 'bg-transparent'}`} />
               Admin
             </button>
           </div>
 
-          {/* User Profile or Sign In */}
+          {/* User Profile or Sign In - Unified Interactive Card */}
           {currentUser ? (
-            <div className="flex items-center gap-3">
-              <div className="flex items-center gap-2.5 bg-obsidian-800 border border-white/10 rounded-xl px-3 py-1.5">
-                <div className="w-7 h-7 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-xs">
-                  {currentUser.name.charAt(0)}
-                </div>
-                <div className="hidden sm:block text-left text-xs">
-                  <div className="font-semibold text-white leading-tight">{currentUser.name}</div>
-                  <div className="text-[10px] text-zinc-400 uppercase font-mono tracking-wider">{currentUser.role}</div>
-                </div>
+            <button
+              onClick={onOpenAuth}
+              title="Account Settings / Switch Demo User"
+              className="flex items-center gap-2 bg-white/[0.04] hover:bg-white/[0.08] hover:border-white/20 border border-white/10 rounded-xl px-3 py-1.5 h-9 transition-all active:scale-95 group"
+            >
+              <div className="w-6 h-6 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-xs shrink-0 group-hover:scale-105 transition-transform">
+                {currentUser.name.charAt(0)}
               </div>
-              <button
-                onClick={onLogout}
-                title="Sign Out"
-                className="p-2 text-zinc-400 hover:text-red-400 hover:bg-white/5 rounded-lg transition-colors"
-              >
-                <LogOut className="w-4 h-4" />
-              </button>
-            </div>
+              <div className="hidden sm:block text-left text-xs">
+                <span className="font-semibold text-white whitespace-nowrap block">
+                  {currentUser.name.replace(/\s*\(Admin\)/i, '')}
+                </span>
+              </div>
+              <ChevronDown className="w-3.5 h-3.5 text-zinc-400 group-hover:text-white transition-colors" />
+            </button>
           ) : (
             <button
               onClick={onOpenAuth}
-              className="px-5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-obsidian-900 font-bold text-sm tracking-wide shadow-lg shadow-emerald-500/25 hover:shadow-emerald-500/40 transition-all active:scale-95 flex items-center gap-2"
+              className="h-9 px-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-obsidian-900 font-bold text-xs uppercase tracking-wider shadow-lg shadow-emerald-500/20 hover:shadow-emerald-500/30 transition-all active:scale-95 flex items-center gap-2"
             >
               <UserIcon className="w-4 h-4" />
               Sign In
@@ -137,7 +143,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* Mobile Hamburger Button */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden p-2 rounded-xl bg-obsidian-800 text-zinc-300 hover:text-white border border-white/10 transition-colors"
+            className="md:hidden w-10 h-10 flex items-center justify-center rounded-xl bg-white/[0.04] text-zinc-300 hover:text-white border border-white/10 transition-colors active:scale-95"
             aria-label="Toggle Navigation Menu"
           >
             {isMobileMenuOpen ? <X className="w-5 h-5 text-emerald-400" /> : <Menu className="w-5 h-5" />}
@@ -229,8 +235,6 @@ export const Navbar: React.FC<NavbarProps> = ({
         </div>
       )}
     </header>
-  );
-};
   );
 };
 

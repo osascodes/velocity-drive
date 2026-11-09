@@ -106,66 +106,74 @@
         </div>
       </div>
 
-      <!-- Links -->
-      <nav class="hidden md:flex items-center gap-8 text-sm font-medium">
-        <button onclick="switchView('home')" id="nav-fleet" class="text-emerald-400 font-semibold transition-colors">
-          Fleet Catalog
+      <!-- Clean, Non-wrapping Desktop Nav Links -->
+      <nav class="hidden md:flex items-center gap-5 lg:gap-7 text-sm font-medium">
+        <button onclick="switchView('home')" id="nav-fleet" class="whitespace-nowrap text-emerald-400 font-semibold hover:text-emerald-300 transition-colors">
+          Fleet
         </button>
-        <a href="#how-it-works" class="text-zinc-300 hover:text-emerald-400 transition-colors">
+        <a href="#how-it-works" class="whitespace-nowrap text-zinc-300 hover:text-emerald-400 transition-colors">
           How It Works
         </a>
-        <a href="#why-us" class="text-zinc-300 hover:text-emerald-400 transition-colors">
-          Why Velocity
+        <a href="#why-us" class="whitespace-nowrap text-zinc-300 hover:text-emerald-400 transition-colors">
+          Why Us
         </a>
-        <button onclick="switchView('my-bookings')" id="nav-bookings" class="flex items-center gap-1.5 text-zinc-300 hover:text-emerald-400 transition-colors">
+        <button onclick="switchView('my-bookings')" id="nav-bookings" class="whitespace-nowrap flex items-center gap-2 text-zinc-300 hover:text-emerald-400 transition-colors">
           <i data-lucide="calendar" class="w-4 h-4 text-emerald-400"></i>
           <span>My Bookings</span>
-          <span id="booking-badge" class="px-1.5 py-0.2 rounded-full bg-emerald-500/20 text-emerald-400 text-[10px] font-mono font-bold ml-1">2</span>
+          <span id="booking-badge" class="px-1.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 text-[10px] font-mono font-bold">2</span>
         </button>
-        <button onclick="switchView('admin-dashboard')" id="nav-admin" class="flex items-center gap-1.5 text-amber-400 hover:text-amber-300 transition-colors">
+        <button onclick="switchView('admin-dashboard')" id="nav-admin" class="hidden whitespace-nowrap items-center gap-2 text-amber-400 hover:text-amber-300 transition-colors">
           <i data-lucide="shield" class="w-4 h-4"></i>
           <span>Admin Command</span>
         </button>
       </nav>
 
-      <!-- Right Controls: Demo Role Toggle & Auth -->
-      <div class="flex items-center gap-3">
+      <!-- Right Controls: Sleek Role Switcher & Unified Interactive User Card -->
+      <div class="flex items-center gap-3.5">
         
-        <!-- Demo Role Switcher -->
-        <div class="hidden lg:flex items-center bg-obsidian-800 border border-white/10 rounded-full p-1 text-xs">
-          <span class="px-2.5 py-0.5 text-zinc-400 text-[11px] font-mono flex items-center gap-1">
-            <i data-lucide="sparkles" class="w-3 h-3 text-emerald-400"></i>
-            DEMO:
-          </span>
-          <button id="role-customer-btn" onclick="setRole('CUSTOMER')" class="px-3 py-1 rounded-full font-semibold bg-emerald-500 text-obsidian-900 transition-all">
-            Customer
+        <!-- Subtle Vertical Separator -->
+        <div class="hidden lg:block h-5 w-px bg-white/10"></div>
+
+        <!-- Sleek Minimalist Role Switcher -->
+        <div class="hidden lg:inline-flex items-center bg-white/[0.03] border border-white/10 rounded-full p-0.5 text-xs">
+          <button
+            id="role-customer-btn"
+            onclick="setRole('CUSTOMER')"
+            class="flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium transition-all bg-white/10 text-white shadow-sm"
+          >
+            <span id="role-customer-dot" class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+            <span>Customer</span>
           </button>
-          <button id="role-admin-btn" onclick="setRole('ADMIN')" class="px-3 py-1 rounded-full font-medium text-zinc-300 hover:text-white transition-all">
-            Admin
+          <button
+            id="role-admin-btn"
+            onclick="setRole('ADMIN')"
+            class="flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium transition-all text-zinc-400 hover:text-white"
+          >
+            <span id="role-admin-dot" class="w-1.5 h-1.5 rounded-full bg-transparent"></span>
+            <span>Admin</span>
           </button>
         </div>
 
-        <!-- User profile button -->
-        <div id="user-profile-section" class="flex items-center gap-2">
-          <div class="flex items-center gap-2.5 bg-obsidian-800 border border-white/10 rounded-xl px-3 py-1.5">
-            <div id="user-avatar-initial" class="w-7 h-7 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-xs">
-              A
-            </div>
-            <div class="hidden sm:block text-left text-xs">
-              <div id="user-display-name" class="font-semibold text-white leading-tight">Alex Rivera</div>
-              <div id="user-display-role" class="text-[10px] text-zinc-400 uppercase font-mono tracking-wider">CUSTOMER</div>
-            </div>
+        <!-- Unified Interactive User Card (No duplicate user buttons) -->
+        <button
+          onclick="openAuthModal()"
+          title="Account Settings / Switch Demo User"
+          class="flex items-center gap-2 bg-white/[0.04] hover:bg-white/[0.08] hover:border-white/20 border border-white/10 rounded-xl px-3 py-1.5 h-9 transition-all active:scale-95 group"
+        >
+          <div id="user-avatar-initial" class="w-6 h-6 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-xs shrink-0 group-hover:scale-105 transition-transform">
+            A
           </div>
-          <button onclick="openAuthModal()" title="Switch Account / Sign In" class="p-2 text-zinc-400 hover:text-emerald-400 bg-obsidian-800 rounded-xl border border-white/10 transition-colors">
-            <i data-lucide="user" class="w-4 h-4"></i>
-          </button>
-        </div>
+          <div class="hidden sm:block text-left text-xs">
+            <span id="user-display-name" class="font-semibold text-white whitespace-nowrap block">Alex Rivera</span>
+          </div>
+          <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-zinc-400 group-hover:text-white transition-colors"></i>
+        </button>
 
         <!-- Mobile Hamburger Menu Button -->
         <button
           id="mobile-menu-btn"
           onclick="toggleMobileMenu()"
-          class="md:hidden p-2.5 rounded-xl bg-obsidian-800 text-zinc-300 hover:text-white border border-white/10 transition-colors active:scale-95"
+          class="md:hidden w-10 h-10 flex items-center justify-center rounded-xl bg-white/[0.04] text-zinc-300 hover:text-white border border-white/10 transition-colors active:scale-95"
           aria-label="Toggle navigation menu"
         >
           <i id="mobile-menu-icon" data-lucide="menu" class="w-5 h-5"></i>
@@ -1878,20 +1886,25 @@
       document.getElementById('view-my-bookings').classList.add('hidden');
       document.getElementById('view-admin-dashboard').classList.add('hidden');
 
-      document.getElementById('nav-fleet').className = 'text-zinc-300 hover:text-emerald-400 transition-colors';
-      document.getElementById('nav-bookings').className = 'flex items-center gap-1.5 text-zinc-300 hover:text-emerald-400 transition-colors';
-      document.getElementById('nav-admin').className = 'flex items-center gap-1.5 text-zinc-300 hover:text-amber-400 transition-colors';
+      document.getElementById('nav-fleet').className = 'whitespace-nowrap text-zinc-300 hover:text-emerald-400 transition-colors';
+      document.getElementById('nav-bookings').className = 'whitespace-nowrap flex items-center gap-2 text-zinc-300 hover:text-emerald-400 transition-colors';
+      const navAdmin = document.getElementById('nav-admin');
+      if (state.user.role === 'ADMIN') {
+        navAdmin.className = 'whitespace-nowrap flex items-center gap-2 text-zinc-300 hover:text-amber-400 transition-colors';
+      } else {
+        navAdmin.className = 'hidden whitespace-nowrap items-center gap-2 text-zinc-300 hover:text-amber-400 transition-colors';
+      }
 
       if (viewName === 'home') {
         document.getElementById('view-home').classList.remove('hidden');
-        document.getElementById('nav-fleet').className = 'text-emerald-400 font-semibold';
+        document.getElementById('nav-fleet').className = 'whitespace-nowrap text-emerald-400 font-semibold transition-colors';
       } else if (viewName === 'my-bookings') {
         document.getElementById('view-my-bookings').classList.remove('hidden');
-        document.getElementById('nav-bookings').className = 'flex items-center gap-1.5 text-emerald-400 font-semibold';
+        document.getElementById('nav-bookings').className = 'whitespace-nowrap flex items-center gap-2 text-emerald-400 font-semibold transition-colors';
         renderBookings();
       } else if (viewName === 'admin-dashboard') {
         document.getElementById('view-admin-dashboard').classList.remove('hidden');
-        document.getElementById('nav-admin').className = 'flex items-center gap-1.5 text-amber-400 font-semibold';
+        navAdmin.className = 'whitespace-nowrap flex items-center gap-2 text-amber-400 font-semibold transition-colors';
         renderAdminDashboard();
       }
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -1903,26 +1916,41 @@
       state.user.role = role;
       const custBtn = document.getElementById('role-customer-btn');
       const admBtn = document.getElementById('role-admin-btn');
+      const custDot = document.getElementById('role-customer-dot');
+      const admDot = document.getElementById('role-admin-dot');
       const nameLabel = document.getElementById('user-display-name');
-      const roleLabel = document.getElementById('user-display-role');
+      const navAdmin = document.getElementById('nav-admin');
 
       if (role === 'ADMIN') {
-        state.user.name = 'David Makinde (Admin)';
+        state.user.name = 'David Makinde';
         state.user.email = 'admin@velocitydrive.com';
-        custBtn.className = 'px-3 py-1 rounded-full font-medium text-zinc-300 hover:text-white';
-        admBtn.className = 'px-3 py-1 rounded-full font-semibold bg-amber-400 text-obsidian-900';
+        if (custBtn) custBtn.className = 'flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium transition-all text-zinc-400 hover:text-white';
+        if (admBtn) admBtn.className = 'flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium transition-all bg-white/10 text-white shadow-sm';
+        if (custDot) custDot.className = 'w-1.5 h-1.5 rounded-full bg-transparent';
+        if (admDot) admDot.className = 'w-1.5 h-1.5 rounded-full bg-amber-400';
+        if (navAdmin) {
+          navAdmin.classList.remove('hidden');
+          navAdmin.classList.add('flex');
+        }
         switchView('admin-dashboard');
       } else {
         state.user.name = 'Alex Rivera';
         state.user.email = 'customer@velocitydrive.com';
-        custBtn.className = 'px-3 py-1 rounded-full font-semibold bg-emerald-500 text-obsidian-900';
-        admBtn.className = 'px-3 py-1 rounded-full font-medium text-zinc-300 hover:text-white';
+        if (custBtn) custBtn.className = 'flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium transition-all bg-white/10 text-white shadow-sm';
+        if (admBtn) admBtn.className = 'flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium transition-all text-zinc-400 hover:text-white';
+        if (custDot) custDot.className = 'w-1.5 h-1.5 rounded-full bg-emerald-400';
+        if (admDot) admDot.className = 'w-1.5 h-1.5 rounded-full bg-transparent';
+        if (navAdmin) {
+          navAdmin.classList.add('hidden');
+          navAdmin.classList.remove('flex');
+        }
         switchView('home');
       }
 
-      nameLabel.innerText = state.user.name;
-      roleLabel.innerText = state.user.role;
-      document.getElementById('user-avatar-initial').innerText = state.user.name.charAt(0);
+      if (nameLabel) nameLabel.innerText = state.user.name;
+      const avatarInit = document.getElementById('user-avatar-initial');
+      if (avatarInit) avatarInit.innerText = state.user.name.charAt(0);
+      lucide.createIcons();
     }
 
     // Car Details Modal

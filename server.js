@@ -473,7 +473,7 @@ const server = http.createServer(async (req, res) => {
       const user = {
         id: isAdmin ? 'user-admin' : 'user-customer',
         email,
-        name: isAdmin ? 'David Makinde (Admin)' : 'Alex Rivera',
+        name: isAdmin ? 'David Makinde' : 'Alex Rivera',
         role: isAdmin ? 'ADMIN' : 'CUSTOMER'
       };
       const token = 'jwt-session-token-' + crypto.randomBytes(16).toString('hex');

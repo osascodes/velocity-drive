@@ -124,7 +124,7 @@ export default function Home() {
       setCurrentUser({
         id: 'user-admin',
         email: 'admin@velocitydrive.com',
-        name: 'David Makinde (Admin)',
+        name: 'David Makinde',
         role: 'ADMIN',
         createdAt: new Date().toISOString()
       });

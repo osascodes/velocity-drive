@@ -45,7 +45,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onAuthSuc
     const demoUser: User = {
       id: isAdm ? 'user-admin' : 'user-customer',
       email: isAdm ? 'admin@velocitydrive.com' : 'customer@velocitydrive.com',
-      name: isAdm ? 'David Makinde (Admin)' : 'Alex Rivera',
+      name: isAdm ? 'David Makinde' : 'Alex Rivera',
       role: demoRole,
       createdAt: new Date().toISOString()
     };
