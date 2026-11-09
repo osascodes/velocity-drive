@@ -124,6 +124,8 @@ class ApiClient {
         id: `book-${Date.now()}`,
         bookingNumber: `VD-${Math.floor(1000 + Math.random() * 9000)}-${String.fromCharCode(65 + Math.floor(Math.random() * 26))}`,
         userId: 'user-customer',
+        userName: 'Alex Rivera',
+        userEmail: 'customer@velocitydrive.com',
         carId: bookingData.carId,
         startDate: bookingData.startDate,
         endDate: bookingData.endDate,
