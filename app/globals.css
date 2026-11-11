@@ -42,3 +42,11 @@ body {
   color: #0b0d0f;
 }
 
+/* Prevent auto-zooming on focus in mobile browsers (iOS/Android) */
+@media screen and (max-width: 768px) {
+  input, select, textarea {
+    font-size: 16px !important;
+  }
+}
+
+

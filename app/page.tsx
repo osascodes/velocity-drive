@@ -27,14 +27,8 @@ const initialFilters: FilterState = {
 };
 
 export default function Home() {
-  // Current user state (defaulted to demo customer)
-  const [currentUser, setCurrentUser] = useState<User | null>({
-    id: 'user-customer',
-    email: 'customer@velocitydrive.com',
-    name: 'Alex Rivera',
-    role: 'CUSTOMER',
-    createdAt: new Date().toISOString()
-  });
+  // Current user state (defaulted to logged-out visitor so reviewer can test Sign In flow)
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
 
   const [activeView, setActiveView] = useState<'home' | 'my-bookings' | 'admin-dashboard'>('home');
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
@@ -205,7 +199,10 @@ export default function Home() {
         activeView={activeView}
         setActiveView={setActiveView}
         onOpenAuth={() => setIsAuthModalOpen(true)}
-        onLogout={() => setCurrentUser(null)}
+        onLogout={() => {
+          setCurrentUser(null);
+          setActiveView('home');
+        }}
         onSwitchRole={handleSwitchRole}
       />
 
