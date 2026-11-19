@@ -26,21 +26,25 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onAuthSuc
     setError('');
 
     try {
-      // Direct instant login without email verification message
       const res = await api.login(email, password);
       if (res.success && res.user && res.token) {
-        onAuthSuccess(res.user, res.token);
+        // Prefer the name the user just entered if the backend didn't return one
+        const finalUser = {
+          ...res.user,
+          name: name.trim() || res.user.name || email.split('@')[0]
+        };
+        onAuthSuccess(finalUser, res.token);
         onClose();
         return;
       }
-      
-      // Fallback in-memory authentication
-      const isAdmin = email.toLowerCase().includes('admin');
-      const emailPrefix = email.split('@')[0] || 'User';
-      const displayName = mode === 'register' && name.trim() 
-        ? name.trim() 
-        : emailPrefix.charAt(0).toUpperCase() + emailPrefix.slice(1);
 
+      // Fallback: use the name the user typed. If none, show the email as the display name
+      // so we never invent a random-looking name.
+      const displayName = name.trim() 
+        ? name.trim() 
+        : email; // show full email instead of inventing a name
+
+      const isAdmin = email.toLowerCase().includes('admin');
       const user: User = {
         id: isAdmin ? 'user-admin' : `user-${Date.now()}`,
         email,
@@ -53,13 +57,11 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onAuthSuc
       onAuthSuccess(user, token);
       onClose();
     } catch {
-      // Fallback direct login so user is never blocked by email verification
-      const isAdmin = email.toLowerCase().includes('admin');
-      const emailPrefix = email.split('@')[0] || 'User';
-      const displayName = mode === 'register' && name.trim() 
+      const displayName = name.trim() 
         ? name.trim() 
-        : emailPrefix.charAt(0).toUpperCase() + emailPrefix.slice(1);
+        : email;
 
+      const isAdmin = email.toLowerCase().includes('admin');
       const user: User = {
         id: isAdmin ? 'user-admin' : `user-${Date.now()}`,
         email,
@@ -166,22 +168,23 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onAuthSuc
         )}
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          {mode === 'register' && (
-            <div>
-              <label className="text-zinc-400 block mb-1 text-xs">Full Name</label>
-              <div className="relative">
-                <UserIcon className="w-4 h-4 text-zinc-500 absolute left-3 top-1/2 -translate-y-1/2" />
-                <input
-                  type="text"
-                  required
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  placeholder="e.g. Alex Rivera"
-                  className="w-full bg-obsidian-800 border border-white/10 rounded-xl pl-9 pr-3 py-2.5 text-white text-base sm:text-xs focus:outline-none focus:border-emerald-500 transition-colors"
-                />
-              </div>
+          {/* Name field always shown so user controls what appears in the header */}
+          <div>
+            <label className="text-zinc-400 block mb-1 text-xs">
+              Full Name {mode === 'login' && <span className="text-zinc-500">(optional)</span>}
+            </label>
+            <div className="relative">
+              <UserIcon className="w-4 h-4 text-zinc-500 absolute left-3 top-1/2 -translate-y-1/2" />
+              <input
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder={mode === 'register' ? 'e.g. Solomon Kayode' : 'Leave blank to use your email'}
+                className="w-full bg-obsidian-800 border border-white/10 rounded-xl pl-9 pr-3 py-2.5 text-white text-base sm:text-xs focus:outline-none focus:border-emerald-500 transition-colors"
+                required={mode === 'register'}
+              />
             </div>
-          )}
+          </div>
 
           <div>
             <label className="text-zinc-400 block mb-1 text-xs">Email Address</label>
