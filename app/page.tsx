@@ -112,25 +112,38 @@ export default function Home() {
     }));
   };
 
-  // Demo Role Switcher
+  // Role Switcher - preserves real user identity when logged in
   const handleSwitchRole = (newRole: Role) => {
-    if (newRole === 'ADMIN') {
+    if (currentUser) {
+      // Keep the real signed-in user's name, email, and id — only change the role
       setCurrentUser({
-        id: 'user-admin',
-        email: 'admin@velocitydrive.com',
-        name: 'David Makinde',
-        role: 'ADMIN',
-        createdAt: new Date().toISOString()
+        ...currentUser,
+        role: newRole
       });
+    } else {
+      // Fallback demo users only when not signed in
+      if (newRole === 'ADMIN') {
+        setCurrentUser({
+          id: 'user-admin',
+          email: 'admin@velocitydrive.com',
+          name: 'David Makinde',
+          role: 'ADMIN',
+          createdAt: new Date().toISOString()
+        });
+      } else {
+        setCurrentUser({
+          id: 'user-customer',
+          email: 'customer@velocitydrive.com',
+          name: 'Alex Rivera',
+          role: 'CUSTOMER',
+          createdAt: new Date().toISOString()
+        });
+      }
+    }
+
+    if (newRole === 'ADMIN') {
       setActiveView('admin-dashboard');
     } else {
-      setCurrentUser({
-        id: 'user-customer',
-        email: 'customer@velocitydrive.com',
-        name: 'Alex Rivera',
-        role: 'CUSTOMER',
-        createdAt: new Date().toISOString()
-      });
       setActiveView('home');
     }
   };
@@ -331,4 +344,3 @@ export default function Home() {
     </div>
   );
 }
-
