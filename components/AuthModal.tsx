@@ -28,7 +28,6 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onAuthSuc
     try {
       const res = await api.login(email, password);
       if (res.success && res.user && res.token) {
-        // Prefer the name the user just entered if the backend didn't return one
         const finalUser = {
           ...res.user,
           name: name.trim() || res.user.name || email.split('@')[0]
@@ -38,11 +37,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onAuthSuc
         return;
       }
 
-      // Fallback: use the name the user typed. If none, show the email as the display name
-      // so we never invent a random-looking name.
-      const displayName = name.trim() 
-        ? name.trim() 
-        : email; // show full email instead of inventing a name
+      const displayName = name.trim() ? name.trim() : email;
 
       const isAdmin = email.toLowerCase().includes('admin');
       const user: User = {
@@ -57,9 +52,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onAuthSuc
       onAuthSuccess(user, token);
       onClose();
     } catch {
-      const displayName = name.trim() 
-        ? name.trim() 
-        : email;
+      const displayName = name.trim() ? name.trim() : email;
 
       const isAdmin = email.toLowerCase().includes('admin');
       const user: User = {
@@ -106,7 +99,6 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onAuthSuc
           <X className="w-5 h-5" />
         </button>
 
-        {/* Brand */}
         <div className="text-center mb-6">
           <div className="inline-flex items-center gap-1.5 font-black text-xl text-white mb-1">
             <span>VELOCITY</span>
@@ -115,7 +107,6 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onAuthSuc
           <p className="text-xs text-zinc-400 font-mono">SECURE ACCESS</p>
         </div>
 
-        {/* Demo Fast Login Bar */}
         <div className="mb-6 p-3 rounded-2xl bg-obsidian-850 border border-white/10 text-center">
           <span className="text-[10px] font-mono uppercase tracking-wider text-emerald-400 block mb-2 font-bold flex items-center justify-center gap-1">
             <Sparkles className="w-3.5 h-3.5" />
@@ -139,7 +130,6 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onAuthSuc
           </div>
         </div>
 
-        {/* Tabs */}
         <div className="flex border-b border-white/10 mb-6 text-xs font-bold">
           <button
             type="button"
@@ -168,7 +158,6 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onAuthSuc
         )}
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Name field always shown so user controls what appears in the header */}
           <div>
             <label className="text-zinc-400 block mb-1 text-xs">
               Full Name {mode === 'login' && <span className="text-zinc-500">(optional)</span>}
@@ -179,7 +168,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onAuthSuc
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                placeholder={mode === 'register' ? 'e.g. Solomon Kayode' : 'Leave blank to use your email'}
+                placeholder="John Doe"
                 className="w-full bg-obsidian-800 border border-white/10 rounded-xl pl-9 pr-3 py-2.5 text-white text-base sm:text-xs focus:outline-none focus:border-emerald-500 transition-colors"
                 required={mode === 'register'}
               />
