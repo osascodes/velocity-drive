@@ -23,7 +23,6 @@ export const Navbar: React.FC<NavbarProps> = ({
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const userMenuRef = useRef<HTMLDivElement>(null);
 
-  // Close user dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (userMenuRef.current && !userMenuRef.current.contains(e.target as Node)) {
@@ -97,18 +96,15 @@ export const Navbar: React.FC<NavbarProps> = ({
         {/* Action Controls & Auth */}
         <div className="flex items-center gap-2 sm:gap-3.5 shrink-0">
 
-          {/* Logged Out: Clean "Sign In" Button */}
           {!currentUser ? (
             <button
               onClick={onOpenAuth}
               className="h-9 sm:h-10 px-3 sm:px-5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-obsidian-900 font-bold text-[11px] sm:text-xs uppercase tracking-wider shadow-lg shadow-emerald-500/20 hover:shadow-emerald-500/30 transition-all active:scale-95 flex items-center gap-1.5 sm:gap-2"
             >
               <UserIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-              <span className="hidden xs:inline sm:inline">Sign In</span>
-              <span className="xs:hidden sm:hidden">In</span>
+              <span>Sign In</span>
             </button>
           ) : (
-            /* Logged In: Sleek Avatar with Dropdown for Account Actions */
             <div className="relative" ref={userMenuRef}>
               <button
                 onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
@@ -130,10 +126,8 @@ export const Navbar: React.FC<NavbarProps> = ({
                 }`} />
               </button>
 
-              {/* Avatar Dropdown Menu */}
               {isUserMenuOpen && (
                 <div className="absolute right-0 mt-2 w-60 rounded-2xl bg-obsidian-900 border border-white/15 p-2 shadow-2xl shadow-black z-50 animate-in fade-in zoom-in-95 backdrop-blur-xl">
-                  {/* User Profile Info */}
                   <div className="px-3 py-2.5 border-b border-white/10 mb-1">
                     <div className="text-xs font-bold text-white truncate">{currentUser.name}</div>
                     <div className="text-[11px] text-zinc-400 truncate">{currentUser.email}</div>
@@ -149,7 +143,6 @@ export const Navbar: React.FC<NavbarProps> = ({
                     </div>
                   </div>
 
-                  {/* Switch Role Action */}
                   <button
                     onClick={() => {
                       const targetRole: Role = currentUser.role === 'ADMIN' ? 'CUSTOMER' : 'ADMIN';
@@ -164,7 +157,6 @@ export const Navbar: React.FC<NavbarProps> = ({
 
                   <div className="h-px bg-white/10 my-1" />
 
-                  {/* Sign Out Action */}
                   <button
                     onClick={() => {
                       onLogout();
@@ -180,7 +172,6 @@ export const Navbar: React.FC<NavbarProps> = ({
             </div>
           )}
 
-          {/* Mobile Hamburger Button */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className="md:hidden w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center rounded-xl bg-white/[0.04] text-zinc-300 hover:text-white border border-white/10 transition-colors active:scale-95"
@@ -192,7 +183,6 @@ export const Navbar: React.FC<NavbarProps> = ({
         </div>
       </div>
 
-      {/* Mobile Drawer Menu */}
       {isMobileMenuOpen && (
         <div className="md:hidden border-t border-white/10 bg-obsidian-900/98 backdrop-blur-2xl px-4 py-5 space-y-4">
           <div className="space-y-1 text-sm font-medium">
@@ -252,7 +242,6 @@ export const Navbar: React.FC<NavbarProps> = ({
             )}
           </div>
 
-          {/* Account Actions Section */}
           <div className="pt-3 border-t border-white/10">
             {currentUser ? (
               <div className="space-y-2">
