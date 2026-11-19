@@ -36,7 +36,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
   return (
     <header className="sticky top-0 z-40 w-full backdrop-blur-xl bg-obsidian-900/80 border-b border-white/10 transition-colors">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between gap-2">
 
         {/* Brand Logo */}
         <div
@@ -44,19 +44,19 @@ export const Navbar: React.FC<NavbarProps> = ({
             setActiveView('home');
             setIsMobileMenuOpen(false);
           }}
-          className="flex items-center gap-3 cursor-pointer group"
+          className="flex items-center gap-2 sm:gap-3 cursor-pointer group shrink-0"
         >
-          <div className="w-11 h-11 rounded-xl bg-gradient-to-tr from-emerald-600 to-teal-400 p-0.5 shadow-lg shadow-emerald-500/20 group-hover:shadow-emerald-500/40 transition-all duration-300">
+          <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-tr from-emerald-600 to-teal-400 p-0.5 shadow-lg shadow-emerald-500/20 group-hover:shadow-emerald-500/40 transition-all duration-300">
             <div className="w-full h-full bg-obsidian-900 rounded-[10px] flex items-center justify-center">
-              <Car className="w-6 h-6 text-emerald-400 group-hover:scale-110 transition-transform" />
+              <Car className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-400 group-hover:scale-110 transition-transform" />
             </div>
           </div>
-          <div>
-            <div className="flex items-center gap-1.5">
-              <span className="font-extrabold text-xl tracking-tight text-white">VELOCITY</span>
-              <span className="font-extrabold text-xl tracking-tight text-emerald-400">DRIVE</span>
+          <div className="hidden xs:block sm:block">
+            <div className="flex items-center gap-1">
+              <span className="font-extrabold text-base sm:text-xl tracking-tight text-white">VELOCITY</span>
+              <span className="font-extrabold text-base sm:text-xl tracking-tight text-emerald-400">DRIVE</span>
             </div>
-            <span className="text-[10px] font-mono tracking-widest text-zinc-400 uppercase block -mt-1">PREMIUM FLEET</span>
+            <span className="text-[9px] sm:text-[10px] font-mono tracking-widest text-zinc-400 uppercase block -mt-0.5">PREMIUM FLEET</span>
           </div>
         </div>
 
@@ -95,15 +95,15 @@ export const Navbar: React.FC<NavbarProps> = ({
         </nav>
 
         {/* Action Controls & Auth */}
-        <div className="flex items-center gap-3.5">
+        <div className="flex items-center gap-2 sm:gap-3.5 ml-auto">
 
           {/* Logged Out: Clean "Sign In" Button */}
           {!currentUser ? (
             <button
               onClick={onOpenAuth}
-              className="h-10 px-5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-obsidian-900 font-bold text-xs uppercase tracking-wider shadow-lg shadow-emerald-500/20 hover:shadow-emerald-500/30 transition-all active:scale-95 flex items-center gap-2"
+              className="h-9 sm:h-10 px-3 sm:px-5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-obsidian-900 font-bold text-[11px] sm:text-xs uppercase tracking-wider shadow-lg shadow-emerald-500/20 hover:shadow-emerald-500/30 transition-all active:scale-95 flex items-center gap-1.5 sm:gap-2"
             >
-              <UserIcon className="w-4 h-4" />
+              <UserIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
               <span>Sign In</span>
             </button>
           ) : (
@@ -112,7 +112,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <button
                 onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
                 title="Account Actions"
-                className="flex items-center gap-2.5 bg-white/[0.04] hover:bg-white/[0.08] hover:border-white/20 border border-white/10 rounded-xl px-3 py-1.5 h-10 transition-all active:scale-95 group"
+                className="flex items-center gap-2 sm:gap-2.5 bg-white/[0.04] hover:bg-white/[0.08] hover:border-white/20 border border-white/10 rounded-xl px-2 sm:px-3 py-1.5 h-9 sm:h-10 transition-all active:scale-95 group"
               >
                 <div className={`w-6 h-6 rounded-lg ${
                   currentUser.role === 'ADMIN' ? 'bg-amber-400/20 text-amber-400' : 'bg-emerald-500/20 text-emerald-400'
@@ -182,7 +182,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* Mobile Hamburger Button */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden w-10 h-10 flex items-center justify-center rounded-xl bg-white/[0.04] text-zinc-300 hover:text-white border border-white/10 transition-colors active:scale-95"
+            className="md:hidden w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center rounded-xl bg-white/[0.04] text-zinc-300 hover:text-white border border-white/10 transition-colors active:scale-95"
             aria-label="Toggle Navigation Menu"
           >
             {isMobileMenuOpen ? <X className="w-5 h-5 text-emerald-400" /> : <Menu className="w-5 h-5" />}
